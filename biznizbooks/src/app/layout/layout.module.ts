@@ -4,6 +4,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SocialLoginModule } from '@abacritt/angularx-social-login';
+
 
 @NgModule({
   declarations: [
@@ -14,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     RouterModule,
     FormsModule,
+    SocialLoginModule,
     ReactiveFormsModule
   ],
   exports: [

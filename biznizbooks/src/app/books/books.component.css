@@ -1,0 +1,13 @@
+#BooksThumbnails .animated{
+    animation-duration:.2s !important;
+}
+.facebook-btn:active, .facebook-btn:focus, .facebook-btn:hover, .facebook-btn {
+    color: #fff;
+    background: #4267B2;
+    border: 2px solid #284d97;
+    width:40px;
+    min-width:40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 16px;
+}

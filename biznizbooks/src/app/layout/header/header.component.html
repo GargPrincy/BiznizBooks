@@ -1,18 +1,16 @@
 <header>
   <div class="container">
-    <div class="row align-items-center justify-content-center">
-      <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
-        <div class="top-logo" id="logo">
-          <a href="" routerLink="/"
-            ><img src="assets/images/logo.png" alt="logo"
+    <div class="row align-items-center justify-content-xxl-center justify-content-between">
+      <div class="col-xxl-auto col-xl-2 col-lg-3 col-md-12  order-xl-1 order-1">
+        <div class="top-logo " id="logo">
+          <a href="" routerLink="/" (click)="onGoToPage2()" class="d-block text-lg-start text-center" ><img src="assets/images/logo.png" alt="logo"
           /></a>
         </div>
       </div>
 
-      <div
-        class="col-xl-auto col-lg-6 col-md-12 mt-lg-0 mb-lg-0 mt-3 mb-4 ms-auto">
-        <div class="header-categories bounceInLeft">
-          <form class="search-in row g-0">
+      <div class="bounceInLeft animated col-xxl-auto col-xl-4 col-lg-12 col-md-12 order-xl-2 order-5 mt-xl-0 mt-4 ms-xxl-auto">
+        <div class="header-categories ">
+          <form class="search-in row g-0"  [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
             <div class="col">
               <input
                 type="text"
@@ -29,15 +27,15 @@
           </form>
         </div>
       </div>
-      <div class="col-xl-auto col-lg-6 col-md-6 mb-md-0 mb-3">
+      <div class="bounceInLeft animated col-xl-auto col-lg-4 col-md-5 order-xl-3 order-2 mb-md-0 mb-3">
         <div class="header-search">
-          <a href="" routerLink="/categories" class="d-block w-100"> Categories </a>
+          <a href="" routerLink="/categories" (click)="onGoToPage2()" class="d-block w-100"> Categories </a>
         </div>
       </div>
 
-      <div class="col-xl-auto col-lg-6 col-md-6">
-        <div class="user-box">
-          <div class="row g-0">
+      <div class="bounceInLeft animated col-xl-auto col-lg-4 col-md-5 col-10 order-xl-4 order-3">
+        <div class="user-box"  id="userId">
+          <div class="row g-0"  *ngIf="!showModelPopup">
             <div class="col-auto">
               <div class="user-icon">
                 <img
@@ -48,19 +46,44 @@
               </div>
             </div>
             <div class="col">
-              <div class="user-name">userName</div>
+              <div class="user-name">
+                {{showGuestUserBooks}}
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-0" *ngIf="showModelPopup" data-bs-toggle="modal" data-bs-target="raunds-row-modals">
+            <div class="col-auto">
+              <div class="user-icon">
+                <img
+                  src="assets/images/user-icon.png"
+                  width="50px"
+                  alt="user icon"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="user-name">
+                {{showGuestUserBooks}}
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="col-auto order-xl-4 order-3 bounceInLeft animated">
+        <div *ngIf="socialTokenBook">
+          <button type="button" (click)="signOut()" class=" btn-logout">
+            <img src="assets/images/logout.png" alt="">
+          </button>
+        </div> 
+
+      </div>
     </div>
   </div>
-  <div
-    class="modal raund-modal"
-    id="raunds-row-modals"
-    data-bs-keyboard="false"
-    data-bs-backdrop="static"
-  >
+
+
+  <div class="modal raund-modal" id="raunds-row-modals" data-bs-keyboard="false" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" aria-hidden="true">
       <div class="modal-content">
         <img
@@ -69,25 +92,36 @@
           class="btn-close popup-close"
           id="popup-close"
           src="assets/images/close-btn.png"
+          (click)="hidePopup()"
           width="40px"
           alt="close"
         />
-        <div class="modal-body modal-inner-box">
+        <div class="modal-body p-4">
           <div class="model-content">
-            <h3>Guest user name</h3>
-            <div class="ineer-popup-close-btn">
-              <form>
+            <div class="modal-header-view">
+            <h5 class="modal-title text-center">Guest user name</h5>
+          </div>
+            <div class="ineer-guest-popup">
+              <form [formGroup]="myForm" (ngSubmit)="userFormSubmit(myForm)">
                 <div>
                   <input
                     class="popup-input"
                     formControlName="name"
                     placeholder="Enter your name here"
                   />
-                  <div class="errors-1">Name is required.</div>
-                  <div class="errors-1">Please enter atleast 3 characters.</div>
-                  <div class="errors-1">Please enter valid name.</div>
+                  <div class="errors-1" 
+                  *ngIf="(myFormControl['name'].touched || submitted) && myFormControl['name'].errors && myFormControl['name'].errors['required']">Name is required.</div>
+                  <div class="errors-1" 
+                  *ngIf="(myFormControl['name'].touched || submitted) && myFormControl['name'].errors && myFormControl['name'].errors['minlength']">Please enter atleast 3 characters.</div>
+                  <div class="errors-1"
+                  *ngIf="(myFormControl['name'].touched || submitted) && myFormControl['name'].errors && myFormControl['name'].errors['pattern']">Please enter valid name.</div>
                 </div>
-                <button class="btn btn-popup-box" type="submit">Submit</button>
+                <div class="btn-grp text-center">
+                  <button class="d-inline-block btns btn-secondary" type="submit">
+                    <span>Submit</span>
+                  </button>
+                </div>
+               
               </form>
             </div>
           </div>

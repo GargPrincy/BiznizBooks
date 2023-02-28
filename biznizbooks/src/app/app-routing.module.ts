@@ -1,27 +1,50 @@
 import { NgModule } from '@angular/core';
-// import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+
 import { BookListingComponent } from './book-listing/book-listing.component';
 import { BooksComponent } from './books/books.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { HomeComponent } from './home/home.component';
+// import { HomeComponent } from './home/home.component';
 import { ViewAllComponent } from './view-all/view-all.component';
-
+import { CategoryListingComponent } from './category-listing/category-listing.component';
+import { SearchComponent } from './search/search.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
-  { path: "",
-    component: HomeComponent 
+  {
+    path: "",
+    loadChildren:() => import('./home/home.module').then(m => m.HomeModule)
   },
-  { path: "book-listings", component: BookListingComponent },
-  { path: "categories", component: CategoriesComponent },
-  { path: "books", component: BooksComponent },
-  { path: "view-all", component: ViewAllComponent },
+
+  { path: "categories", 
+  component: CategoriesComponent },
+
+  { path: "book-listings/:bookSearchKey", 
+    component: BookListingComponent },
+
+    { path: "book-listings", 
+    component: BookListingComponent },
+
+  { path: "books/:bookParamId", 
+    component: BooksComponent 
+  },
+
+  { path: "category-listing/:categoryId", 
+    component: CategoryListingComponent 
+  },
+
+  { path: "view-all/:bookSearchKey", 
+  component: ViewAllComponent },
+
+  { path: "view-all", 
+  component: ViewAllComponent },
+  
+  { path: '**', pathMatch: 'full',component: PagenotfoundComponent },
+  { path: 'search', component: SearchComponent }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes,{ useHash: true })
-  ],
+  imports: [RouterModule.forRoot(routes,{ useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {  }

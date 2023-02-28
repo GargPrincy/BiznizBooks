@@ -1,0 +1,99 @@
+<section class="category-listing-section section-padding">
+    <span class="loader" *ngIf="loading"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="" *ngIf=" showContent &&
+                categoriesAllDataCategoryListing &&
+                categoriesAllDataCategoryListing.topicDetails &&
+                categoriesAllDataCategoryListing?.topicDetails?.length">
+                    <div class="category-heading">
+                        <h2>{{ categoriesAllDataCategoryListing.category_name | titlecase }}</h2>
+                    </div>
+                </div>
+               
+                
+            </div>
+        </div>
+    <div *ngIf="showContent &&
+    categoriesAllDataCategoryListing &&
+    categoriesAllDataCategoryListing.topicDetails &&
+    categoriesAllDataCategoryListing?.topicDetails?.length">
+
+    <ul class="p-0 category-lists">
+        <li class="category-lists-item"  id="{{ i }}" *ngFor="let book of categoriesAllDataCategoryListing.topicDetails;
+        let i = index">
+            <div *ngIf="book.biznizbooks?.length" >
+                <div class="row justify-content-between align-items-center mb-3">
+                    <div class="col-md mb-md-0 mb-3" *ngIf="showCurrentTopic != ''">
+                        <h2 class="listing-heading m-0">{{ book.topic_name | titlecase }}</h2>
+                    </div>
+                    <div class="col-auto">
+                        <form action="" [formGroup]="form" class="d-inline-block">
+                            <div class="sort-box ">
+                                <select name="languages" id="lang" class="" (change)="onChanges($event, i)">
+                                    <option value="">Sort</option>
+                                    <option value="viewss">Sort(by downloads)</option>
+                                    <option value="atoz">Sort(by A-Z title)</option>
+                                </select>
+                            </div>
+                        </form>
+                        
+                        <div class="view-all ms-3 d-inline-block">
+                            <a href="" routerLink="/view-all/{{ book.topic_name }}?topic">
+                                View All ({{ book.total_biznizbooks }})
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4" *ngIf="book.biznizbooks?.length" class="border-bottom">
+                <div class="col-12">
+                    <owl-carousel-o [options]="BookListingCarousel">
+                        <ng-container class="" *ngFor="let bookss of book.biznizbooks">
+                        <ng-template carouselSlide [id]="bookss.id">
+                            <a href="" routerLink="/books/{{ bookss.id }}" class="d-block">
+                        <div class="book-list">
+                            <img src="{{ bookss.thumbnail }}" alt="img 1">
+                            <div class="book-content">
+                                <div class="book-title">
+                                    {{ bookss.title }}
+                                </div>
+                                <div class="book-pages"> {{bookss.author | titlecase}}</div>
+                                <div class="row justify-content-between">
+                                    <div class="col-auto">
+                                        <div class="book-pages">
+                                            {{ bookss.page_count }} Pages
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="books-downloads">
+                                            {{ bookss.download_count }} Downloads
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                        </ng-template>
+                    </ng-container>
+                    
+                    </owl-carousel-o>
+                </div>
+            </div>
+            <div>
+
+            </div>
+            
+        </li>
+
+    </ul>
+</div>
+<div class="col-md-12" *ngIf="noData  && !loading">
+    <h3 class="error-msg">No Matching Record Found</h3>
+</div>
+
+       
+    </div>
+</section>

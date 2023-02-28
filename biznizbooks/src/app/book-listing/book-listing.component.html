@@ -1,148 +1,69 @@
 <section class="book-listing-section section-padding">
+    <span class="loader" *ngIf="loading"></span>
     <div class="container">
         <div class="row justify-content-between align-items-center">
-            <div class="col-lg-auto col-md-7 col-auto">
-                <h2 class="listing-heading m-0">Today's Top 20 Slides</h2>
+
+            <div *ngIf="topicKeyword && categoriesAllData.data.length && showData ">
+                <h2 class="top-cat">{{categoriesAllData.data[0].category}}</h2>
+              </div>
+
+            <div class="col-md mb-md-0 mb-3">
+                <h2 class="listing-heading m-0">{{showKeyword | titlecase}}</h2>
             </div>
-            <div class="col-lg-auto col-md-5 col-auto">
+
+            <div class=" col-auto">
+                <form class="d-inline-block" [formGroup]="form"
+                *ngIf="categoriesAllData.data.length && showData">
                 <div class="sort-box d-inline-block">
-                    <select name="languages" id="lang" class="">
+                    <select name="languages" id="lang" class="" (change)="onChanges($event)">
                         <option value="">Sort</option>
                         <option value="viewss">Sort(by downloads)</option>
                         <option value="atoz">Sort(by A-Z title)</option>
                     </select>
                 </div>
-                <div class="view-all ms-3 d-inline-block">
-                    <a href="#" routerLink="/view-all">
-                        View All (20)
+                </form>
+                <div class="view-all ms-3 d-inline-block" *ngIf="categoriesAllData.data.length && showData ">
+                    <a target="_self" (click)="bookAll()">
+                        View All ({{totalCount}})
+                        <!-- ({{ book.total_biznizbooks }}) -->
                     </a>
                 </div>
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-12">
+            <div class="col-12"  *ngIf="categoriesAllData.data.length && showData">
                 <owl-carousel-o [options]="customOptions">
-                    <ng-template carouselSlide>
-                        <a href="#" routerLink="/books" class="d-block">
-                      <div class="book-list">
-                        <img src="../../assets/images/books/book-1.png" alt="img 1">
-                        <div class="book-content">
-                            <div class="book-title">
-                                Managing Personalities: The E: Manual
-                            </div>
-                            <div class="row justify-content-between">
-                                <div class="col-auto">
-                                    <div class="book-pages">
-                                        110 Pages
+                    <ng-container *ngFor="let book of categoriesAllData.data">
+                        <ng-template carouselSlide carouselSlide [id]="book.id">
+                            <a href="" routerLink="/books/{{book.id}}" class="d-block">
+                          <div class="book-list">
+                            <img src="{{book.thumbnail}}" alt="img 1">
+                            <div class="book-content">
+                                <div class="book-title">
+                                    {{book.title}}
+                                </div>
+                                <div class="book-pages"> {{book.author | titlecase}}</div>
+                                <div class="row justify-content-between">
+                                    <div class="col-auto">
+                                        <div class="book-pages">
+                                            {{book.page_count}} Pages
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="books-downloads">
+                                            {{book.download_count}} Downloads
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-auto">
-                                    <div class="books-downloads">
-                                        823 downloads
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                      </div>
-                    </a>
-                    </ng-template>
-                    <ng-template carouselSlide>
-                        <a href="#" routerLink="/books" class="d-block">
-                        <div class="book-list">
-                          <img src="../../assets/images/books/book-2.png" alt="img 1">
-                          <div class="book-content">
-                              <div class="book-title">
-                                  Managing Personalities: The E: Manual
-                              </div>
-                              <div class="row justify-content-between">
-                                  <div class="col-auto">
-                                      <div class="book-pages">
-                                          110 Pages
-                                      </div>
-                                  </div>
-                                  <div class="col-auto">
-                                      <div class="books-downloads">
-                                          823 downloads
-                                      </div>
-                                  </div>
-                              </div>
                           </div>
-                        </div>
                         </a>
-                      </ng-template>
-                      <ng-template carouselSlide>
-                        <a href="#" routerLink="/books" class="d-block">
-                        <div class="book-list">
-                          <img src="../../assets/images/books/book-3.png" alt="img 1">
-                          <div class="book-content">
-                              <div class="book-title">
-                                  Managing Personalities: The E: Manual
-                              </div>
-                              <div class="row justify-content-between">
-                                  <div class="col-auto">
-                                      <div class="book-pages">
-                                          110 Pages
-                                      </div>
-                                  </div>
-                                  <div class="col-auto">
-                                      <div class="books-downloads">
-                                          823 downloads
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                        </div>
-                        </a>
-                      </ng-template>
-                      <ng-template carouselSlide>
-                        <a href="#" routerLink="/books" class="d-block">
-                        <div class="book-list">
-                          <img src="../../assets/images/books/book-4.png" alt="img 1">
-                          <div class="book-content">
-                              <div class="book-title">
-                                  Managing Personalities: The E: Manual
-                              </div>
-                              <div class="row justify-content-between">
-                                  <div class="col-auto">
-                                      <div class="book-pages">
-                                          110 Pages
-                                      </div>
-                                  </div>
-                                  <div class="col-auto">
-                                      <div class="books-downloads">
-                                          823 downloads
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                        </div>
-                        </a>
-                      </ng-template>
-                      <ng-template carouselSlide>
-                        <a href="#" routerLink="/books" class="d-block">
-                        <div class="book-list">
-                          <img src="../../assets/images/books/book-2.png" alt="img 1">
-                          <div class="book-content">
-                              <div class="book-title">
-                                  Managing Personalities: The E: Manual
-                              </div>
-                              <div class="row justify-content-between">
-                                  <div class="col-auto">
-                                      <div class="book-pages">
-                                          110 Pages
-                                      </div>
-                                  </div>
-                                  <div class="col-auto">
-                                      <div class="books-downloads">
-                                          823 downloads
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                        </div>
-                        </a>
-                      </ng-template>
-                  </owl-carousel-o>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o> 
+            </div>
+            <div class="col-md-12" *ngIf="categoriesAllData.data.length == 0 && !loading">
+                <h3 class="error-msg">No Matching Records Found</h3>
             </div>
         </div>
     </div>

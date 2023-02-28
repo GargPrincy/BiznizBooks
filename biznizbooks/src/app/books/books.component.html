@@ -5,15 +5,15 @@
                 <div class="books-heading">
                     <div class="bg-box">
                         <div class="bg-inner">
-                            <h2 class="text-center m-0">BUILDING CONFIDENCE: EMPOWER YOUR LIFE</h2>
+                            <h2 class="text-center m-0">{{bookData.title }}</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xxl-3 col-xl-4 order-xl-1 order-2 mb-xl-0 mb-4">
+        <div class="row align-items-center">
+            <div class="col-xxl-3 col-xl-4 order-xl-1 order-3 mb-xl-0 mb-4">
                 <div class="view-box bg-box left">
                     <div class="bg-inner view-inner">
                         <ul>
@@ -23,7 +23,7 @@
                                         <div class="btns btn-secondary">
                                             <span>
                                                 <h4>Category:</h4>
-                                                <h6>Assertiveness</h6>
+                                                <h6>{{bookData.category}}</h6>
                                             </span> 
                                        </div>
                                     </div>
@@ -35,7 +35,8 @@
                                         <div class="btns btn-secondary">
                                             <span>
                                                 <h4>Topic:</h4>
-                                                <h6>Confidence-Building</h6>
+                                                <ng-template #tipContent1>{{bookData.topic}}</ng-template>
+                                                <h6 class="topic-name" [ngbTooltip]="tipContent1">{{bookData.topic}}</h6>
                                             </span> 
                                        </div>
                                     </div>
@@ -46,8 +47,8 @@
                                     <div class="btn-grp">
                                         <div class="btns btn-secondary">
                                             <span>
-                                                <h4>Number of slides:</h4>
-                                                <h6>177</h6>
+                                                <h4>Number of pages:</h4>
+                                                <h6>{{bookData.page_count}}</h6>
                                             </span> 
                                        </div>
                                     </div>
@@ -59,7 +60,7 @@
                                         <div class="btns btn-secondary">
                                             <span>
                                                 <h4>Author</h4>
-                                                <h6>Barrie Davenport</h6>
+                                                <h6>{{bookData.author}}</h6>
                                             </span> 
                                        </div>
                                     </div>
@@ -72,14 +73,8 @@
                                         <div class="btns btn-secondary">
                                             <span>
                                                 <h4>Description</h4>
-                                                <ng-template #tipContent>This e-book will 
-                                                    get you motivated, overcome 
-                                                    social fear, be assertive, and 
-                                                    empower your life.</ng-template>
-                                                <p class="des-text m-0" [ngbTooltip]="tipContent">This e-book will 
-                                                    get you motivated, overcome 
-                                                    social fear, be assertive, and 
-                                                    empower your life.</p>
+                                                <ng-template #tipContent>{{bookData.description}}</ng-template>
+                                                <p class="des-text m-0" [ngbTooltip]="tipContent">{{bookData.description}}</p>
                                             </span> 
                                        </div>
                                     </div>
@@ -92,28 +87,48 @@
                 </div>
             </div>
             <div class="col-xxl-5 col-xl-4 order-1 order-xl-2 mb-xl-0 mb-4 mx-xxl-auto">
-               
+               <!-- <div class="books-thumbnail">
+                    <div class="books-thumbnail-inner">
+                        <img src="../../assets/images/books/book-1.png" class="w-100" alt="" />
+                    </div>
+               </div> -->
+            <div class="" *ngIf="bookData.status">
+               <owl-carousel-o [options]="BooksThumbnails" class="" id="BooksThumbnails">
+                <ng-container  *ngFor="let bookthumb of bookThumbnails;let i = index">
+                  <ng-template class="" carouselSlide [id]="bookthumb">
+                      <div class="bottom-list" *ngIf="bookthumb"> 
+                        <img src="{{bookthumb}}" width="100%" alt="product-img">
+                      </div>
+              </ng-template>
+              </ng-container>
+              </owl-carousel-o>
             </div>
-            <div class="col-xxl-3 col-xl-4 order-xl-3 order-2">
+
+              <div style="display: none">
+                <input type="text" id="ytbUrl" value="{{bookData.url}}"/>
+                <input type="text" id="embedUrl" value="{{bookEmbed}}"/>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-xl-4 order-xl-3 order-4">
                 <div class="view-box bg-box right">
                     <div class="view-inner bg-inner">
                         <ul>
                             <li>
                                 <div class="view-inner-box">
                                     <div class="btn-grp">
-                                        <a href="" class="btns btn-secondary">
+                                        <button class="btns btn-secondary" [disabled]="downCountBook > 10 || socialEmailBook == false" data-bs-toggle="modal" (click)="downloadBook(bookData.id)" data-bs-target="#DownloadBooks">
                                             <span>
                                                 <img src="../../assets/images/dow_icon.png" alt="" />
                                                 <h3>Download this book</h3>
                                             </span> 
-                                       </a>
+                                        </button>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="view-inner-box">
                                     <div class="btn-grp">
-                                        <a href="" class="btns btn-secondary">
+                                        <a href="" class="btns btn-secondary" routerLink="/book-listings/{{bookData.topic}}?topic">
                                             <span>
                                                 <img src="../../assets/images/view_icon.png" alt="" />
                                                 <h3>View all books
@@ -126,7 +141,7 @@
                             <li>
                                 <div class="view-inner-box">
                                     <div class="btn-grp">
-                                        <a href="" class="btns btn-secondary">
+                                        <a href="" class="btns btn-secondary" data-bs-toggle="modal" data-bs-target="#EmbedCode">
                                             <span>
                                                 <img src="../../assets/images/copy_icon.png" alt="" />
                                                 <h3>Copy embed code</h3>
@@ -138,7 +153,7 @@
                             <li>
                                 <div class="view-inner-box">
                                     <div class="btn-grp">
-                                        <a href="" class="btns btn-secondary">
+                                        <a href="" class="btns btn-secondary" data-bs-toggle="modal" data-bs-target="#Disclaimer">
                                             <span>
                                                 <img src="../../assets/images/disclaimer.png" alt="" />
                                                 <h3>Disclaimer</h3>
@@ -150,7 +165,7 @@
                             <li>
                                 <div class="view-inner-box">
                                     <div class="btn-grp">
-                                        <a href="" class="btns btn-secondary">
+                                        <a href="" class="btns btn-secondary" (click)="shareVideoCopytext(bookData.url)" data-bs-toggle="modal" data-bs-target="#ShareBook">
                                             <span>
                                                 <img src="../../assets/images/share-icon.png" alt="" />
                                                 <h3>Share this<br>
@@ -165,9 +180,160 @@
                 </div>
             </div>
 
-            <div class="col-12">
-               
+            <div class="col-12 order-xl-4 order-2 mt-xl-5 mt-0 mb-xl-0 mb-4">
+             
+                    <owl-carousel-o class="books-thumbnail-carousel" [options]="BooksThumbnail">
+                        <ng-container  *ngFor="let bookthumbbelow of bookThumbnails;let i = index">
+                            <ng-template carouselSlide [id]="bookthumbbelow">
+                                <a (click)="afterLoadComplete($event, bookthumbbelow, i)">
+                                    <div class="book-thumbnail">
+                                        <img src="{{bookthumbbelow}}" alt="img 1">
+                                      </div>
+                                </a>
+                              </ng-template>
+                        </ng-container>
+                      </owl-carousel-o>
+              
             </div>
         </div>
     </div>
 </section>
+
+
+<!-- Download Book PopUp -->
+<div class="modal" id="DownloadBooks" *ngIf="bookData.download_count >= 0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog books-view-modals modal-dialog-centered">
+        <div class="modal-content">
+        
+        <div class="modal-body p-4">
+            <div class="modal-header-view" *ngIf="socialEmailBook">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Download E-Books</h5>
+                <!-- <button type="button" class="btn-close-new" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button> -->
+            </div>
+            <div *ngIf="socialEmailBook">
+                <!-- <span class="d-none"> -->
+                    <span>UserName</span>, you have now 
+                    downloaded  {{bookData.user_download_today}} books 
+                    today. You have {{downloadCountBook}} downloads 
+                    left in your 24-hour quota.
+                <!-- </span> -->
+            </div>
+            <div class="p" *ngIf="!socialEmailBook">
+                <span>
+                    <span>{{guestDownloadBook}}</span>, Please login with below social media accounts in order to download this book.
+                </span>
+
+                 <!------------- social media login ------------->
+                 <div class="col-auto text-center face-book mt-3">
+
+                          <div class="btn-social-media-box d-flex justify-content-center">
+
+                            <button type="button" (click)="signInWithFB()" class="me-2 btn-social-media-btn bounceInLeft facebook-btn animated"><i class="fab fa-facebook-f"></i></button>
+
+                            <asl-google-signin-button type='icon' shape='circle' size='large' width='200' class="bounceInRight animated"></asl-google-signin-button> 
+
+                          </div>
+                      <!-- <div *ngIf="socialToken">
+                        <button type="button" (click)="signOut()" class=" btn-logout btn-social-media-btn">
+                          <img src="assets/images/logout.png" alt="">
+                        </button>
+                    </div>  -->
+                  </div>
+              <!------------- social media login ------------->
+            </div>
+            <div class="btn-grp text-center">
+                <a href="javascript:void(0)" class="d-inline-block btns btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                    <span>Close</span>
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Download Book PopUp -->
+
+<!-- Embed Code PopUp -->
+<div class="modal" id="EmbedCode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog books-view-modals modal-dialog-centered">
+        <div class="modal-content">
+        
+        <div class="modal-body p-4">
+            <div class="modal-header-view">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Embed Code</h5>
+               
+            </div>
+            <div class="p">
+                {{bookEmbed}}
+                
+            </div>
+            <div class="btn-grp text-center">
+                <button data-bs-dismiss="modal" class="d-inline-block btns btn-secondary me-3" (click)="embedSlideCopytext(bookData.url)"><span>Copy</span>
+                </button>
+                <a href="javascript:void(0)" class="d-inline-block btns btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                    <span>Close</span>
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Embed Code PopUp -->
+
+
+<!-- Disclaimer PopUp -->
+<div class="modal" id="Disclaimer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog books-view-modals modal-dialog-centered">
+        <div class="modal-content">
+        
+        <div class="modal-body p-4">
+            <div class="modal-header-view">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Disclaimer</h5>
+               
+            </div>
+            <div class="p">
+                All e-books on this site are 
+                made available as training 
+                materials and are free of 
+                charge. Please read our Terms 
+                and Conditions and let us 
+                know via our email if you have 
+                requests regarding the 
+                materials on this site 
+            </div>
+            <div class="btn-grp text-center">
+                <a href="javascript:void(0)" class="d-inline-block btns btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                    <span>Close</span>
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Disclaimer PopUp -->
+
+<!-- ShareBook PopUp -->
+<div class="modal" id="ShareBook" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog books-view-modals modal-dialog-centered">
+        <div class="modal-content">
+        
+        <div class="modal-body p-4">
+            <div class="modal-header-view">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Share this E-Book</h5>
+               
+            </div>
+            <div class="p">
+                The link to this page has now been 
+copied to your clipboard for you to 
+share with others.
+            </div>
+            <div class="btn-grp text-center">
+                <a href="javascript:void(0)" class="d-inline-block btns btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                    <span>Close</span>
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- ShareBook PopUp -->

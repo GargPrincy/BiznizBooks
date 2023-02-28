@@ -7,19 +7,17 @@
                         <img src="../assets/images/home-logo.png" class="w-100" alt="Home Logo" />
                     </div>
                     <p>
-                        “You are just seconds away from downloading your
-                        free choice of e-books for all your soft skills learning 
-                        and training.”
+                        “{{homeAllData.info?.subTitle}}”
                     </p>
                     <div class="row justify-content-center">
-                        <div class="col-xl-7">
+                        <div class="col-xxl-7 col-xl-8 col-lg-10 col-md-8 col-sm-9 col-11">
                             <div class="btn-grp">
-                                <a href="#" routerLink="/book-listings" class="d-block btns btn-primary mb-2">
+                                <a href="" routerLink="/book-listings/top20s" class="d-block btns btn-primary mb-2">
                                     <span>
                                         View our Top 20 E-Books
                                     </span>
                                 </a>
-                                <a href="javascript:void(0)" class="d-block btns btn-primary" data-bs-toggle="modal" data-bs-target="#siteSettings">
+                                <a href="javascript:void(0)" (click)="openModelData()" class="d-block btns btn-primary" data-bs-toggle="modal" data-bs-target="#siteSettings">
                                     <span>
                                         Site Settings
                                     </span>
@@ -29,29 +27,27 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 mt-lg-0 mt-4">
                 <div class="table-content">
                     <div class="table-inner">
                         <div class="table-heading text-center">
                             <h3>
-                                On BiznizBooks, you can download up to 10 free e-books each 
-                                day covering a wide range of personal and management skills. 
-                                Including...
+                                {{homeAllData.info?.content}}
                             </h3>
                         </div>
                         <div class="main-content">
-                            <ol>
-                                <li><span>1.</span>Flash-based Mini-Courses</li>
-                                <li><span>2.</span>20 E-Manuals</li>
-                                <li><span>3.</span>202 One-Day Course Plans</li>
-                                <li><span>4.</span>20 Step-by-Step Topics</li>
-                                <li><span>5.</span>203 Soft Skills Handouts</li>
-                                <li><span>6.</span>255 Infographics</li>
-                                <li><span>7.</span>433 Articles</li>
-                                <li><span>8.</span>21 The Experts Teach Series</li>
-                                <li><span>9.</span>500+ Management E-Books</li>
-                                <li><span>10.</span>200+ Self-Improvement E-Books</li>
-                                <li><span></span>... and Many More</li>
+                            <ol  class="text-center">
+                                <li>80 Flash-based Mini-Courses</li>
+                                <li>20 E-Manuals</li>
+                                <li>202 One-Day Course Plans</li>
+                                <li>20 Step-by-Step Topics</li>
+                                <li>203 Soft Skills Handouts</li>
+                                <li>255 Infographics</li>
+                                <li>433 Articles</li>
+                                <li>21 The Experts Teach Series</li>
+                                <li>500+ Management E-Books</li>
+                                <li>200+ Self-Improvement E-Books</li>
+                                <li>... and Many More</li>
                             </ol>
                         </div>
                     </div>
@@ -60,3 +56,162 @@
         </div>
     </div>
 </section>
+
+
+
+<!-- Site Settings PopUp-->
+<div class="modal" id="siteSettings" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header justify-content-center">
+            <h5 class="modal-title text-center w-100 text-uppercase" id="exampleModalLabel">Settings</h5>
+            <button type="button" class="btn-close-new" data-bs-dismiss="modal" (click)="openModelData()" aria-label="Close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="sound-box mb-5">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-auto">
+                      <div class="sound-text d-flex">
+                        <span class="sound-icon d-inline-block">
+                          <img src="assets/images/sound-icon.png" width="100%" alt="logo 2">
+                        </span>
+                        <span class="text d-inline-block">Sound</span>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <label class="toggle-switch">
+                        <input type="checkbox" id="checkkkd" [(ngModel)]="selected"  (click)="doAction($event)">
+                        <div class="slider">
+                            <div class="on-off-btn"></div>
+                        </div>
+                      </label>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-grp text-center">
+                <a href="" class="d-inline-block btns btn-secondary mb-2 w-100" (click)="openModelData()" data-bs-toggle="modal" data-bs-target="#PrivacyPolicy">
+                    <span> Privacy Policy </span>
+                </a>
+                <a href="javascript:void(0)" class="d-inline-block btns btn-secondary w-100" (click)="openModelData()" data-bs-toggle="modal" data-bs-target="#TermsConditions">
+                    <span>Terms & Conditions</span>
+                </a>
+            </div>
+        </div>
+       
+        </div>
+    </div>
+</div>
+<!-- Site Settings PopUp -->
+
+<!-- Privacy Policy PopUp -->
+<div class="modal" id="PrivacyPolicy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header justify-content-center">
+            <h5 class="modal-title text-center w-100 text-uppercase" id="exampleModalLabel">Privacy Policy</h5>
+            <button type="button" class="btn-close-new" data-bs-dismiss="modal" (click)="openModelData()" aria-label="Close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body p-4">
+            <div class="setting-content">
+                <div class="setting-inner">
+                    <ol>
+                        <li class="ol-listing">
+                            <h5>INTRODUCTION AND GENERAL TERMS</h5>
+                            <ul>
+                                <li>
+                                    Lorem ipsum dolor sit amet, 
+                                    consectetur adipiscing elit, sed do eiusmod tempor 
+                                    incididunt ut labore et dolore magna aliqua. 
+                                    Quis ipsum suspendisse ultrices gravida. 
+                                    Risus commodo viverra maecenas accumsan 
+                                    lacus vel facilisis. 
+                                </li>
+                                <li>
+                                    Lorem ipsum dolor sit amet, 
+                                    consectetur adipiscing elit, sed do eiusmod tempor 
+                                    incididunt ut labore et dolore magna aliqua. 
+                                    Quis ipsum suspendisse ultrices gravida. 
+                                    Risus commodo viverra maecenas accumsan 
+                                    lacus vel facilisis. 
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ol-listing">
+                            <h5>Lorem ipsum</h5>
+                            <ul>
+                                <li>
+                                    Lorem ipsum dolor sit amet, 
+                                    consectetur adipiscing elit, sed do eiusmod tempor 
+                                    incididunt ut labore et dolore magna aliqua. 
+                                    Quis ipsum suspendisse ultrices gravida. 
+                                    Risus commodo viverra maecenas accumsan 
+                                    lacus vel facilisis. 
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>   
+        </div>
+       
+        </div>
+    </div>
+</div>
+<!-- Privacy Policy PopUp-->
+
+
+<!-- Terms & Conditions PopUp -->
+<div class="modal" id="TermsConditions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header justify-content-center">
+            <h5 class="modal-title text-center w-100 text-uppercase" id="exampleModalLabel">Terms & Conditions</h5>
+            <button type="button" class="btn-close-new" data-bs-dismiss="modal" (click)="openModelData()" aria-label="Close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body p-4">
+            <div class="setting-content">
+                <div class="setting-inner">
+                    <ol>
+                        <li class="ol-listing">
+                            <h5>INTRODUCTION AND GENERAL TERMS</h5>
+                            <ul>
+                                <li>
+                                    Lorem ipsum dolor sit amet, 
+                                    consectetur adipiscing elit, sed do eiusmod tempor 
+                                    incididunt ut labore et dolore magna aliqua. 
+                                    Quis ipsum suspendisse ultrices gravida. 
+                                    Risus commodo viverra maecenas accumsan 
+                                    lacus vel facilisis. 
+                                </li>
+                                <li>
+                                    Lorem ipsum dolor sit amet, 
+                                    consectetur adipiscing elit, sed do eiusmod tempor 
+                                    incididunt ut labore et dolore magna aliqua. 
+                                    Quis ipsum suspendisse ultrices gravida. 
+                                    Risus commodo viverra maecenas accumsan 
+                                    lacus vel facilisis. 
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ol-listing">
+                            <h5>Lorem ipsum</h5>
+                            <ul>
+                                <li>
+                                    Lorem ipsum dolor sit amet, 
+                                    consectetur adipiscing elit, sed do eiusmod tempor 
+                                    incididunt ut labore et dolore magna aliqua. 
+                                    Quis ipsum suspendisse ultrices gravida. 
+                                    Risus commodo viverra maecenas accumsan 
+                                    lacus vel facilisis. 
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>   
+        </div>
+       
+        </div>
+    </div>
+</div>
+<!-- Terms & Conditions PopUp -->
