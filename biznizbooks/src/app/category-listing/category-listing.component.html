@@ -33,14 +33,14 @@
                             <div class="sort-box ">
                                 <select name="languages" id="lang" class="" (change)="onChanges($event, i)">
                                     <option value="">Sort</option>
-                                    <option value="viewss">Sort(by downloads)</option>
-                                    <option value="atoz">Sort(by A-Z title)</option>
+                                    <option value="viewss">Sort (by downloads)</option>
+                                    <option value="atoz">Sort (by A-Z title)</option>
                                 </select>
                             </div>
                         </form>
                         
                         <div class="view-all ms-3 d-inline-block">
-                            <a href="" routerLink="/view-all/{{ book.topic_name }}?topic">
+                            <a href="" [routerLink]="['/category-view', book.topic_id]">
                                 View All ({{ book.total_biznizbooks }})
                             </a>
                         </div>
@@ -60,7 +60,7 @@
                                 <div class="book-title">
                                     {{ bookss.title }}
                                 </div>
-                                <div class="book-pages"> {{bookss.author | titlecase}}</div>
+                                <div class="book-pages authors"> {{bookss.author | titlecase}}</div>
                                 <div class="row justify-content-between">
                                     <div class="col-auto">
                                         <div class="book-pages">

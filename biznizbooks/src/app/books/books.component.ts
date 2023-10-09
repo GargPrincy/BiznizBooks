@@ -7,7 +7,7 @@ import { SocialAuthService , SocialUser ,FacebookLoginProvider, GoogleLoginProvi
 
 import { BookListingsService } from 'src/services/book-listings/book-listings.service';
 import { HomeService } from 'src/services/home/home.service';
-
+declare var $: any;
 
 @Component({
   selector: 'app-books',
@@ -18,26 +18,33 @@ export class BooksComponent {
   public bookData:any = [];
   public downloadsData:any;
   public slideId:string="";
+  public errors:any;
   public bookThumbnails:any = [];
   public slideurl:any ={};
   public imageSrc:string="";
+  // pops:false;
   // public slideCliecked = 2;
   public bookEmbed:string = "";
   page: number = 1;
   totalPages: number = 0;
+  imageIten:number = 0;
+  lastItem:any;
+  // lastItemView:any;
   public showGuestUserBooks:any = "";
   public guestDownloadBook:any = "";
   public socialToken:any = "";
   public socialEmailBook:any = "";
   isLoaded: boolean = false;
   public downCountBook: number = 0;
-  limitDown: number = 9;
+  limitDown: number = 10;
   public slideIdss : any;
   public downloadCountBook:number = 0;
   public isLoggedin: boolean = false;
   public user!: SocialUser;
   socialUser!: SocialUser;
   public socialAllData:any = [];
+  // public showModalLast:boolean=false;
+  popup = false;
   
   BooksThumbnail: OwlOptions = {
     autoplay: false,
@@ -91,7 +98,8 @@ export class BooksComponent {
     autoWidth:false,  
     navSpeed:100,  
     autoHeight:false,       
-    navText:["   <span class='slide-left'> <img src='assets/images/arrow-left.png' width='59px' alt='arrow-left arrow-a'>  </span>","<span class='slide-right'><img src='assets/images/arrow-right.png' width='59px' alt='arrow-right arrow-a'> </span>"],
+    navText:["   <span class='slide-left'> <img src='assets/images/arrow-left.png' width='59px' alt='arrow-left arrow-a'>  </span>",
+    "<span class='slide-right'><img src='assets/images/arrow-right.png' width='59px' alt='arrow-right arrow-a'> </span>"],
     animateOut: 'fadeOut', 
     animateIn: 'fadeIn',
     items:1,
@@ -100,7 +108,7 @@ export class BooksComponent {
     mouseDrag  : false,
   };
   
-
+public modalShoiw:boolean=false;
   constructor(
     private activatedRoute: ActivatedRoute,
       private _bookListingService: BookListingsService,
@@ -112,9 +120,12 @@ export class BooksComponent {
    }
 
   ngOnInit() {
+    
     [].slice.call(document.querySelectorAll('book')).forEach(function(audio:any) {
       audio.muted = true;
   });
+
+  console.log($('#BooksThumbnails').find('.owl-next.disabled').closest('.owl-nav').length, '<ngoinittttttttttinittttt---->>>')
   console.log('hi-ngointit')
     this.activatedRoute.queryParams.subscribe(params => {
       const slideId = params['bookParamId'];
@@ -190,13 +201,31 @@ export class BooksComponent {
       this.socialEmailBook = localStorage.getItem('socialEmailBook');
 
     // } 
+
+     console.log($('#BooksThumbnails').find('.owl-next.disabled').closest('.owl-nav').length, '<---ngaftervieww---->>>')
+     console.log('modal-show', this.modalShoiw)
+
+
+     if($('#BooksThumbnails').find('.owl-next.disabled').closest('.owl-nav').length == 1 && this.modalShoiw == false){
+      // console.log('modal-show', this.modalShoiw)
+
+
+      $('#LastItem').modal('show');
+      this.modalShoiw = true;
+      // console.log('modal-show', this.modalShoiw)
+     }
+     else if($('#BooksThumbnails').find('.owl-next.disabled').closest('.owl-nav').length == 0 && this.modalShoiw == true){
+     console.log('modal-show-elseifff', this.modalShoiw)
+      this.modalShoiw = false;
+     }
+
     //We loading the player script on after view is loaded
   }
 
   private getData(slideId:number) {
     console.log('s-priny-gargggggggggggggggggggg', slideId)
     console.log("get token-email",this.socialEmailBook)
-
+    this.socialEmailBook = localStorage.getItem('socialEmailBook');
     
     this._bookListingService.getBookRecord(slideId, this.socialEmailBook).subscribe(
       response => {
@@ -204,16 +233,21 @@ export class BooksComponent {
             this.bookData = response;
             console.log('sssssssssssssssssssssss-ddddddddd', this.bookData)
 
-            this.downCountBook = this.bookData.user_download_today;
+            // this.downCountBook = this.bookData.user_download_today;
             console.log(this.downCountBook, 'dowen-count')
             
             this.titleService.setTitle(this.bookData.title.toUpperCase());
             console.log(this.bookData.url, 'hhhh-url')
             this.slideId = this.bookData.url;
             this.bookThumbnails = this.bookData.gallery;
+
+            // this.lastItemView = this.bookThumbnails.length-2;
+            this.lastItem = this.bookThumbnails.length-1;
+
             this.imageSrc = this.bookThumbnails[0];
 
             console.log(this.bookThumbnails, 'bookThumbnails')
+            console.log(this.BooksThumbnails.navText, 'nav-----------------Thumbnails')
 
               this.bookEmbed ="<iframe width='420' height='345' src='"+this.bookData.url+"'></iframe>";
           }
@@ -223,24 +257,59 @@ export class BooksComponent {
   }
 
   afterLoadComplete(pdf:any,ins:any, ind:number) {
+    console.log(ind, 'iii-length')
+    console.log(ins, 'iii-inssddd')
     this.imageSrc = ins;
     this.BooksThumbnails = { ...this.BooksThumbnails, startPosition : ind}
+    if(this.lastItem == ind){
+      console.log('item-last-item')
+      $('#LastItem').modal('show',{ backdrop: "static ", keyboard: false });
+      // alert('hi length over there sldier')
+    }
   }
+
+  // nameChanged(e:any){
+  //   console.log('<----------main-view-evenr------>',e)
+  //   // console.log(ifn, 'load')
+  //   console.log(this.lastItemView, '<---------main-view-lastitem----->')
+
+
+    // console.log($('owl-carousel-o').find('.owl-next').closest('.owl-nav').find(".disabled").length, '<<<<length is changes')
+    // console.log($(document).find('owl-carousel-o').find('.owl-next').closest('.owl-nav').find(".disabled").length, '<<length is changes- toooooo>>')
+    // console.log($('#BooksThumbnails').find('.owl-next.disabled').closest('.owl-nav').length, '<<length is with books-idd- toooooo>>')
+
+    // if(this.lastItemView == e.startPosition){
+    //   console.log('<--main-view-lastitem----->')
+      // console.log($('owl-carousel-o').find('.owl-next').closest('.owl-nav').find(".disabled").length, '<<<<<<<<enght--->>>after')
+      // console.log($('#BooksThumbnails').find('.owl-next.disabled').closest('.owl-nav').length, '<<<lenght---->>>after')
+
+      // if($('#BooksThumbnails').find('.owl-next.disabled').closest('.owl-nav').length == 1){
+      //   console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<next>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+
+      //   // $('#LastItem').modal('show',{ backdrop: "static ", keyboard: false }); 
+      // }
+      
+  //   }
+  //   // })
+  // }
 
   downloadBook(slideId:number) {
     console.log("get data",slideId)
     console.log("get downloadCount",this.downCountBook)
     // console.log("get token-download",this.socialToken)
-    console.log("get token-email",this.socialEmailBook)
-    
+    console.log("get book-email",localStorage.getItem('socialEmailBook'))
+    this.socialEmailBook = localStorage.getItem('socialEmailBook');
 
-       console.log("get data")
-        // if(this.socialEmailBook){
+    console.log("get token-email",this.socialEmailBook)
+
+        if(this.socialEmailBook != null){
+          console.log('hdfjhk-email-book')
           this._bookListingService.updateBookDownloadCount(slideId, this.socialEmailBook).subscribe(
             response => {  
               console.log('afterrrrrrrrrrrrrrr-clieckk', response);
               this.downloadsData = response;
-              if(this.downloadsData.user_download_count <= 10){
+              this.downCountBook = this.downloadsData.user_download_today;
+              if(this.downloadsData.user_download_today <= 10){
                 console.log('gii-before-10')
 
                 FileSaver.saveAs(this.bookData.url, this.bookData.slug);
@@ -253,11 +322,18 @@ export class BooksComponent {
   
                 // alert('hi')
               }
+              // else{
+              //   alert('ggggggg')
+              // }
               
              
               
+            },error => {
+              this.errors = error.status;
+              console.log( this.errors, 'erroee--generateee')
+              // alert(error.error.message)
             });
-        // }
+        }
   }
 
   signInWithFB(): void {
@@ -311,7 +387,7 @@ export class BooksComponent {
       this.socialAllData = respon;
       localStorage.setItem("tokensocialBook", this.socialAllData.token);
       this.showGuestUserBooks = localStorage.setItem('guestUserNameBizniz', this.socialAllData.name);
-      localStorage.setItem('socialEmailBook', this.socialAllData.email);
+      this.socialEmailBook = localStorage.setItem('socialEmailBook', this.socialAllData.email);
       // localStorage.setItem('socialId', this.socialAllData.id);
       this.showGuestUserBooks = localStorage.getItem("guestUserNameBizniz");
       let slideIdssDownload:number =  this.slideIdss;

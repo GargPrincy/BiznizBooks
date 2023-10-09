@@ -26,15 +26,17 @@ export class CategoryListingComponent {
   BookListingCarousel: OwlOptions = {
     autoWidth:false,
     margin: 20,
-    // loop:false,  
+    // loop:false, 
+    items:5, 
+    slideBy:4, 
     rewind: false,
     dots:false,         
     slideTransition:'linear',
     navText:["   <span class='slide-left'> <img src='assets/images/arrow-left.png' width='59px' alt='arrow-left arrow-a'>  </span>","<span class='slide-right'><img src='assets/images/arrow-right.png' width='59px' alt='arrow-right arrow-a'> </span>"],
     animateOut: 'fadeOut', 
     animateIn: 'fadeIn',
-    navSpeed:100,
-    items: 4,
+    navSpeed:100,  
+      // items: 4,
     responsive: {
       0: {
         items: 1 

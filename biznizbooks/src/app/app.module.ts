@@ -14,8 +14,9 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
-
+import { BooksModule } from './books/books.module';
 import { LayoutModule } from './layout/layout.module';
+
 import { BookListingComponent } from './book-listing/book-listing.component';
 import { CategoriesComponent } from './categories/categories.component';
 // import { BooksComponent } from './books/books.component';
@@ -23,7 +24,8 @@ import { ViewAllComponent } from './view-all/view-all.component';
 import { CategoryListingComponent } from './category-listing/category-listing.component';
 import { SearchComponent } from './search/search.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { BooksModule } from './books/books.module';
+import { CategoryViewComponent } from './category-view/category-view.component';
+import { TopicListingComponent } from './topic-listings/topic-listings.component';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { BooksModule } from './books/books.module';
     // BooksComponent,
     ViewAllComponent,
     CategoryListingComponent,
+    CategoryViewComponent,
+    TopicListingComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,9 @@ export class API {
         getTopBookAll: API.apiBaseUrl + "secondary-today-top-biznizbook",
         // reportSlideMissing: API.apiBaseUrl + "biznizbook/missing-report/{bookParamId}",
         updateBookDownloadCounts: API.apiBaseUrl + "biznizbook/download/{bookParamId}",
+        // https://course.24livehost.com/api/biznizbook/view-all/{topic_id}
+        getAllCategoryListingViewAll: API.apiBaseUrl + "view-all/{topicId}",
+        getTopic: API.apiBaseUrl + "{categoryId}/{topicId}",
     }
     public static social = {
         socialLogin: API.apiBaseUrl + "social-login",               

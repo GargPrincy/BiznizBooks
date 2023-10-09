@@ -110,7 +110,7 @@ export class HomeComponent {
         $("#checkkkd").prop('checked', false); 
       },800) 
     }
-    console.log(soundStatusCheck, "sound-check-status"); 
+    console.log(soundStatusCheck, "sound-check-status");
   }
 
 }

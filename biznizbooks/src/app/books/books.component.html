@@ -87,20 +87,15 @@
                 </div>
             </div>
             <div class="col-xxl-5 col-xl-4 order-1 order-xl-2 mb-xl-0 mb-4 mx-xxl-auto">
-               <!-- <div class="books-thumbnail">
-                    <div class="books-thumbnail-inner">
-                        <img src="../../assets/images/books/book-1.png" class="w-100" alt="" />
-                    </div>
-               </div> -->
             <div class="" *ngIf="bookData.status">
-               <owl-carousel-o [options]="BooksThumbnails" class="" id="BooksThumbnails">
-                <ng-container  *ngFor="let bookthumb of bookThumbnails;let i = index">
-                  <ng-template class="" carouselSlide [id]="bookthumb">
-                      <div class="bottom-list" *ngIf="bookthumb"> 
-                        <img src="{{bookthumb}}" width="100%" alt="product-img">
-                      </div>
-              </ng-template>
-              </ng-container>
+               <owl-carousel-o [options]="BooksThumbnails" id="BooksThumbnails">
+                    <ng-container *ngFor="let bookthumb of bookThumbnails;let i = index" >
+                        <ng-template  class="vft" carouselSlide [id]="bookthumb">
+                                <div class="bottom-list"> 
+                                    <img src="{{bookthumb}}" width="100%" alt="product-img">
+                                </div>
+                        </ng-template>
+                    </ng-container>
               </owl-carousel-o>
             </div>
 
@@ -116,9 +111,9 @@
                             <li>
                                 <div class="view-inner-box">
                                     <div class="btn-grp">
-                                        <button class="btns btn-secondary" [disabled]="downCountBook > 10 || socialEmailBook == false" data-bs-toggle="modal" (click)="downloadBook(bookData.id)" data-bs-target="#DownloadBooks">
+                                        <button class="btns btn-secondary" [disabled]="socialEmailBook == false" data-bs-toggle="modal" (click)="downloadBook(bookData.id)" data-bs-target="#DownloadBooks">
                                             <span>
-                                                <img src="../../assets/images/dow_icon.png" alt="" />
+                                                <img src="assets/images/dow_icon.png" alt="" />
                                                 <h3>Download this book</h3>
                                             </span> 
                                         </button>
@@ -128,9 +123,9 @@
                             <li>
                                 <div class="view-inner-box">
                                     <div class="btn-grp">
-                                        <a href="" class="btns btn-secondary" routerLink="/book-listings/{{bookData.topic}}?topic">
+                                        <a href="" class="btns btn-secondary" routerLink="/topic-listings/{{bookData.category_id}}/{{bookData.topic_id}}">
                                             <span>
-                                                <img src="../../assets/images/view_icon.png" alt="" />
+                                                <img src="assets/images/view_icon.png" alt="" />
                                                 <h3>View all books
                                                     In this topic</h3>
                                             </span> 
@@ -143,7 +138,7 @@
                                     <div class="btn-grp">
                                         <a href="" class="btns btn-secondary" data-bs-toggle="modal" data-bs-target="#EmbedCode">
                                             <span>
-                                                <img src="../../assets/images/copy_icon.png" alt="" />
+                                                <img src="assets/images/copy_icon.png" alt="" />
                                                 <h3>Copy embed code</h3>
                                             </span> 
                                        </a>
@@ -155,7 +150,7 @@
                                     <div class="btn-grp">
                                         <a href="" class="btns btn-secondary" data-bs-toggle="modal" data-bs-target="#Disclaimer">
                                             <span>
-                                                <img src="../../assets/images/disclaimer.png" alt="" />
+                                                <img src="assets/images/disclaimer.png" alt="" />
                                                 <h3>Disclaimer</h3>
                                             </span> 
                                        </a>
@@ -167,7 +162,7 @@
                                     <div class="btn-grp">
                                         <a href="" class="btns btn-secondary" (click)="shareVideoCopytext(bookData.url)" data-bs-toggle="modal" data-bs-target="#ShareBook">
                                             <span>
-                                                <img src="../../assets/images/share-icon.png" alt="" />
+                                                <img src="assets/images/share-icon.png" alt="" />
                                                 <h3>Share this<br>
                                                     E-Book</h3>
                                             </span> 
@@ -183,12 +178,12 @@
             <div class="col-12 order-xl-4 order-2 mt-xl-5 mt-0 mb-xl-0 mb-4">
              
                     <owl-carousel-o class="books-thumbnail-carousel" [options]="BooksThumbnail">
-                        <ng-container  *ngFor="let bookthumbbelow of bookThumbnails;let i = index">
+                        <ng-container *ngFor="let bookthumbbelow of bookThumbnails;let i = index">
                             <ng-template carouselSlide [id]="bookthumbbelow">
                                 <a (click)="afterLoadComplete($event, bookthumbbelow, i)">
                                     <div class="book-thumbnail">
                                         <img src="{{bookthumbbelow}}" alt="img 1">
-                                      </div>
+                                    </div>
                                 </a>
                               </ng-template>
                         </ng-container>
@@ -210,10 +205,14 @@
                 <h5 class="modal-title text-center" id="exampleModalLabel">Download E-Books</h5>
                 <!-- <button type="button" class="btn-close-new" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button> -->
             </div>
-            <div *ngIf="socialEmailBook">
+            <div class="text-white text-center my-3" *ngIf="socialEmailBook">
                 <!-- <span class="d-none"> -->
-                    <span>UserName</span>, you have now 
-                    downloaded  {{bookData.user_download_today}} books 
+                    <span>{{showGuestUserBooks}}</span>, you have now 
+                    downloaded 
+                    <!-- <span *ngIf="downCountBook > 10">10 </span>  -->
+                    <!-- <span *ngIf="downCountBook <= 10">{{downCountBook}}</span> -->
+                    <span *ngIf="errors == 403" >10</span>
+                    <span  *ngIf="!errors">{{downCountBook}}</span> books 
                     today. You have {{downloadCountBook}} downloads 
                     left in your 24-hour quota.
                 <!-- </span> -->
@@ -337,3 +336,26 @@ share with others.
     </div>
 </div>
 <!-- ShareBook PopUp -->
+
+
+<!--POP up when last item-->
+
+<div class="modal" id="LastItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog books-view-modals modal-dialog-centered">
+        <div class="modal-content">
+        
+        <div class="modal-body p-4">
+            <div class="p">
+                This is the last page of this book preview. To receive and read the full book, click the "Download This Book" link on this page.
+            </div>
+            <div class="btn-grp text-center">
+                <a href="javascript:void(0)" class="d-inline-block btns btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+                    <span>Close</span>
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!--POP up when last item-->

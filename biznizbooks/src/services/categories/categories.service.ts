@@ -11,7 +11,8 @@ import { API } from "src/config/api";
 })
 export class CategoriesService {
   private categoryeData: HomeList[];
-  constructor(private readonly _httpService: HttpService) { this.categoryeData = []; }
+  private categoryviewData: any;
+  constructor(private readonly _httpService: HttpService) { this.categoryeData = [];  this.categoryviewData = []; }
   public getCategoryRecords():Observable<HomeList[]> {
     return this._httpService.get<HomeList[]>(API.categories.getAllData)
         .pipe(
@@ -37,6 +38,28 @@ export class CategoriesService {
                  this.categoryeData = r.body.data ?? [];
               }
               return this.categoryeData;
+            })
+        );
+  }
+
+  public getCategoryTopic(slideIda:number, topc:number):Observable<HomeList[]> {
+
+    console.log(slideIda,"dfsdf");
+    console.log(topc,"cateId-pricy");
+    //const searchDataSend = {"searchKey":searchKeyword};
+   
+    return this._httpService.get<HomeList[]>(API.categories.getTopic.replace('{categoryId}', slideIda.toString()).replace('{topicId}', topc.toString()))
+        .pipe(
+            map( r => {
+              console.log("in services",r);
+              if (r.body?.status){
+                 this.categoryviewData.data = r.body.data ?? [];
+                 this.categoryviewData.total = r?.body ?? [];
+              }
+              // console.log(this.categoryviewData.data, 'princy-topic')
+              // console.log(this.categoryviewData.total, 'topic-next-cate')
+              return this.categoryviewData;
+
             })
         );
   }

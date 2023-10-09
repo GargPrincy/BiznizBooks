@@ -9,6 +9,9 @@ import { ViewAllComponent } from './view-all/view-all.component';
 import { CategoryListingComponent } from './category-listing/category-listing.component';
 import { SearchComponent } from './search/search.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { CategoryViewComponent } from './category-view/category-view.component';
+import { TopicListingComponent } from './topic-listings/topic-listings.component';
+
 
 const routes: Routes = [
   {
@@ -31,6 +34,17 @@ const routes: Routes = [
 
   { path: "category-listing/:categoryId", 
     component: CategoryListingComponent 
+  },
+
+  {
+    path: "category-view/:topicId", component: CategoryViewComponent
+  },
+  {
+    path: "category-view", component: CategoryViewComponent 
+  },
+  {
+    path: "topic-listings/:categoryId/:topicId",
+    component: TopicListingComponent 
   },
 
   { path: "view-all/:bookSearchKey", 

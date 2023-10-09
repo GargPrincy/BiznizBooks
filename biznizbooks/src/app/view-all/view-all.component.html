@@ -17,8 +17,8 @@
                     <div class="sort-box d-inline-block">
                         <select name="languages" id="lang" class="" (change)="onChanges($event)">
                             <option value="">Sort</option>
-                            <option value="viewss">Sort(by downloads)</option>
-                            <option value="atoz">Sort(by A-Z title)</option>
+                            <option value="viewss">Sort (by downloads)</option>
+                            <option value="atoz">Sort (by A-Z title)</option>
                         </select>
                     </div>
                 </form>
@@ -39,7 +39,7 @@
                             <div class="book-title">
                                 {{book.title}}
                             </div>
-                            <div class="book-pages"> {{book.author | titlecase}}</div>
+                            <div class="book-pages authors"> {{book.author | titlecase}}</div>
                             <div class="row justify-content-between">
                                 <div class="col-auto">
                                     <div class="book-pages">

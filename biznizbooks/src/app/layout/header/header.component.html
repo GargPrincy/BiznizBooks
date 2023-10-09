@@ -72,7 +72,8 @@
       </div>
 
       <div class="col-auto order-xl-4 order-3 bounceInLeft animated">
-        <div *ngIf="socialTokenBook">
+        <div class="top-logout" *ngIf="socialTokenBook">
+          <span class="toltip2">Logout</span>
           <button type="button" (click)="signOut()" class=" btn-logout">
             <img src="assets/images/logout.png" alt="">
           </button>
