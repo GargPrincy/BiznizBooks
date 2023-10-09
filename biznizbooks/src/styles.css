@@ -391,12 +391,39 @@ footer .footer-inner-text a:hover {
 
 .modal .setting-content .setting-inner {
   max-height: 400px;
-  overflow: auto;
+  overflow-y: auto;
   padding-right: 6px;
+  color: #fff;
+  word-break: break-word;
+}
+
+.modal .setting-content .setting-inner.privacy_policy ul li {
+  list-style: none;
+  position: relative;
+}
+
+.modal .setting-content .setting-inner.privacy_policy ul li::after {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  top: 7px;
+  left: -20px;
+  border-radius: 50%;
+  background: #fdc300;
+}
+
+.modal .setting-content .setting-inner li::marker{
+  color: #fdc300;
+}
+
+.modal .setting-content .setting-inner h6{
+  font-weight: 600;
+  font-size: 20px;
 }
 
 .modal .setting-content .setting-inner ol {
-  padding-left: 28px;
+  padding-left: 44px;
 }
 
 .modal .setting-content .setting-inner ol h5 {
@@ -433,7 +460,7 @@ footer .footer-inner-text a:hover {
 }
 
 .modal .setting-content .setting-inner ol li ul {
-  padding-left: 20px;
+  padding-left: 0px;
 }
 
 .modal .setting-content .setting-inner ol li ul li {
@@ -441,17 +468,15 @@ footer .footer-inner-text a:hover {
   position: relative;
   color: #fff;
   margin: 10px 0;
+  display: table;
 }
 
-.modal .setting-content .setting-inner ol li ul li::after {
-  position: absolute;
-  content: "";
-  width: 10px;
-  height: 10px;
-  top: 7px;
-  left: -20px;
-  border-radius: 50%;
-  background: #fdc300;
+.modal .setting-content .setting-inner ol li ul li span{
+  padding-right: 10px;
+  width: 45px;
+    text-align: center;
+    font-weight: 600;
+    display: table-cell;
 }
 
 .modal .setting-content .setting-inner::-webkit-scrollbar {
@@ -494,6 +519,7 @@ footer .footer-inner-text a:hover {
   font-size: 20px;
   font-weight: 500;
   color: #fff;
+  word-break: break-word;
 }
 
 .modal .ineer-guest-popup input {
@@ -664,7 +690,7 @@ owl-carousel-o .owl-nav .owl-prev {
 
 .book-list .book-content .book-title {
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   white-space: nowrap;
   color: #fff;
   text-overflow: ellipsis;
@@ -677,7 +703,11 @@ owl-carousel-o .owl-nav .owl-prev {
 .book-list .book-content .book-pages {
   font-weight: 400;
   color: #31d4fd;
-  font-size: 15px;
+  font-size: 14px;
+}
+
+.authors{
+  color: #fff !important;
 }
 
 .category-box {
@@ -838,7 +868,7 @@ owl-carousel-o .owl-nav .owl-prev {
 
 .view-box .view-inner ul li .des-text {
   color: #e5beff;
-  font-size: 12px;
+  font-size: 16px;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
