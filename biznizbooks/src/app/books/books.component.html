@@ -100,7 +100,7 @@
             </div>
 
               <div style="display: none">
-                <input type="text" id="ytbUrl" value="{{bookData.url}}"/>
+                <input type="text" id="ytbUrl" value="{{this.baseUrl}}"/>
                 <input type="text" id="embedUrl" value="{{bookEmbed}}"/>
               </div>
             </div>
@@ -160,7 +160,7 @@
                             <li>
                                 <div class="view-inner-box">
                                     <div class="btn-grp">
-                                        <a href="" class="btns btn-secondary" (click)="shareVideoCopytext(bookData.url)" data-bs-toggle="modal" data-bs-target="#ShareBook">
+                                        <a href="" class="btns btn-secondary" (click)="shareVideoCopytext(this.baseUrl)" data-bs-toggle="modal" data-bs-target="#ShareBook">
                                             <span>
                                                 <img src="assets/images/share-icon.png" alt="" />
                                                 <h3>Share this<br>

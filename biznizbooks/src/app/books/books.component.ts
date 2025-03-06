@@ -45,6 +45,7 @@ export class BooksComponent {
   public socialAllData:any = [];
   // public showModalLast:boolean=false;
   popup = false;
+  public baseUrl: any;
   
   BooksThumbnail: OwlOptions = {
     autoplay: false,
@@ -117,6 +118,7 @@ public modalShoiw:boolean=false;
       private authService: SocialAuthService, 
   ) {
     console.log('hi-constructor')
+    this.baseUrl = window.location.href;
    }
 
   ngOnInit() {
